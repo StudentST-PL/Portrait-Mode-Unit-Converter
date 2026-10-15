@@ -11,8 +11,8 @@ enum class LengthUnit(
     val metersFactor: Double
 ) {
     CENTIMETER("Centimeters", "cm", 0.01),
-    Kilometer("Kilometers", "km", 1000.0),
-    Mile("Miles","mi",1609.344),
+    KILOMETER("Kilometers", "km", 1000.0),
+    MILE("Miles","mi",1609.344),
     LIGHT_YEAR("Light Years","ly",9_460_730_472_580_800.0)
 }
 

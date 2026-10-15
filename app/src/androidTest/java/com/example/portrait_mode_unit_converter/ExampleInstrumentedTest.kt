@@ -1,24 +1,28 @@
 package com.example.portrait_mode_unit_converter
 
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
 
-import org.junit.Assert.*
+class ConverterLogicTest {
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.portrait_mode_unit_converter", appContext.packageName)
+    fun testUnitConversions() {
+        // Test przeliczania 1000 metrów
+        assertEquals("100,000", convertMeters("1000", LengthUnit.CENTIMETER))
+        assertEquals("1", convertMeters("1000", LengthUnit.KILOMETER))
+    }
+
+    @Test
+    fun testScientificNotationForExtremeValues() {
+        // Test przełączenia na notację naukową przy małych i dużych wartościach
+        val lightYearsResult = convertMeters("1", LengthUnit.LIGHT_YEAR)
+        assert(lightYearsResult.contains("× 10^")) { "Oczekiwano notacji naukowej dla lat świetlnych" }
+    }
+
+    @Test
+    fun testInvalidAndEmptyInputs() {
+        // Test dla pustego tekstu oraz błędnych znaków
+        assertEquals("", convertMeters("", LengthUnit.CENTIMETER))
+        assertEquals("", convertMeters("abc", LengthUnit.KILOMETER))
     }
 }
